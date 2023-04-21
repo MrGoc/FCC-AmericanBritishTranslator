@@ -20,11 +20,14 @@ module.exports = function (app) {
       res.json({ error: "No text to translate" });
       return;
     }
-    if (locale !== amToBr || locale != brToAm) {
+    if (
+      locale !== translator.americanLocale &&
+      locale != translator.britishLocale
+    ) {
       res.json({ error: "Invalid value for locale field" });
       return;
     }
-    let transText = translator.translate(text);
+    let transText = translator.translate(text, locale);
     if (transText === text)
       res.json({
         text: text,
