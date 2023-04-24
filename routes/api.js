@@ -3,9 +3,6 @@
 const { json } = require("body-parser");
 const Translator = require("../components/translator.js");
 
-const amToBr = "american-to-british";
-const brToAm = "british-to-american";
-
 module.exports = function (app) {
   const translator = new Translator();
 
@@ -27,7 +24,8 @@ module.exports = function (app) {
       res.json({ error: "Invalid value for locale field" });
       return;
     }
-    let transText = translator.translate(text, locale);
+    //text = text.replaceAll("\n", " ");
+    let transText = translator.translate(text, locale, true);
     if (transText === text)
       res.json({
         text: text,
