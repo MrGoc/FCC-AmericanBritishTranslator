@@ -36,11 +36,11 @@ class Translator {
       if (translation === "") {
         /*
         if (el.toLowerCase() in americanToBritishTitles) {
-          translation = americanToBritishTitles[myEl.toLowerCase()];
+          translation = americanToBritishTitles[el.toLowerCase()];
           // capitalize first letter
           translation =
             translation.charAt(0).toUpperCase() + translation.slice(1);
-        } else */
+        } else*/
         if (el.toLowerCase() in americanToBritishSpelling)
           translation = americanToBritishSpelling[el.toLowerCase()];
       }
@@ -54,6 +54,7 @@ class Translator {
         else transText = transText.replace(el, translation);
       }
     });
+
     Object.getOwnPropertyNames(americanToBritishTitles).forEach((prop) => {
       let regex = new RegExp(prop, "ig");
       let val = americanToBritishTitles[prop];
@@ -66,14 +67,16 @@ class Translator {
         );
       else transText = transText.replace(regex, val);
     });
+
     Object.getOwnPropertyNames(americanOnly).forEach((prop) => {
       let regex = new RegExp("\\b" + prop + "\\b", "ig");
-      if (highlight)
-        transText = transText.replace(
-          regex,
-          '<span class="highlight">' + americanOnly[prop] + "</span>"
-        );
-      else transText = transText.replace(regex, americanOnly[prop]);
+      if (!transText.includes(americanOnly[prop]))
+        if (highlight)
+          transText = transText.replace(
+            regex,
+            '<span class="highlight">' + americanOnly[prop] + "</span>"
+          );
+        else transText = transText.replace(regex, americanOnly[prop]);
     });
 
     return transText;
@@ -81,12 +84,24 @@ class Translator {
 
   #translateBritishToAmerican(text, highlight) {
     let transText = text;
-    let textArr = transText.split(/[\s.]+/);
+    let textArr = transText.split(/[\s]+/);
     let translation = "";
     textArr.forEach((el) => {
       translation = this.#convertTime(el, ".", ":");
+      if (translation !== "") {
+        if (highlight)
+          transText = transText.replace(
+            el,
+            '<span class="highlight">' + translation + "</span>"
+          );
+        else transText = transText.replace(el, translation);
+      }
+    });
+
+    textArr = transText.split(/[\s.]+/);
+    textArr.forEach((el) => {
+      translation = ""; //this.#convertTime(el, ".", ":");
       if (translation === "") {
-        /*
         Object.getOwnPropertyNames(americanToBritishTitles).every(
           (prop, idx, array) => {
             if (americanToBritishTitles[prop] === el.toLowerCase()) {
@@ -99,7 +114,7 @@ class Translator {
             return true; // this is continue
           }
         );
-        */
+
         if (translation === "") {
           Object.getOwnPropertyNames(americanToBritishSpelling).every(
             (prop) => {
@@ -122,7 +137,7 @@ class Translator {
         else transText = transText.replace(el, translation);
       }
     });
-
+    /*
     Object.getOwnPropertyNames(americanToBritishTitles).forEach((prop) => {
       let regex = new RegExp(americanToBritishTitles[prop], "ig");
       let val = prop;
@@ -135,15 +150,16 @@ class Translator {
         );
       else transText = transText.replace(regex, val);
     });
-
+    */
     Object.getOwnPropertyNames(britishOnly).forEach((prop) => {
       let regex = new RegExp("\\b" + prop + "\\b", "ig");
-      if (highlight)
-        transText = transText.replace(
-          regex,
-          '<span class="highlight">' + britishOnly[prop] + "</span>"
-        );
-      else transText = transText.replace(regex, britishOnly[prop]);
+      if (!transText.includes(britishOnly[prop]))
+        if (highlight)
+          transText = transText.replace(
+            regex,
+            '<span class="highlight">' + britishOnly[prop] + "</span>"
+          );
+        else transText = transText.replace(regex, britishOnly[prop]);
     });
 
     return transText;

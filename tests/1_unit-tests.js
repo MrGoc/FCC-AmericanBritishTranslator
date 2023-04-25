@@ -115,7 +115,7 @@ suite("Unit Tests", () => {
       ""
     );
   });
-  test("Translate We watched the footie match for a while. to British English", function () {
+  test("Translate We watched the footie match for a while. to American English", function () {
     assert.equal(
       translator.translate(
         "We watched the footie match for a while.",
@@ -126,7 +126,7 @@ suite("Unit Tests", () => {
       ""
     );
   });
-  test("Translate Paracetamol takes up to an hour to work. to British English", function () {
+  test("Translate Paracetamol takes up to an hour to work. to American English", function () {
     assert.equal(
       translator.translate(
         "Paracetamol takes up to an hour to work.",
@@ -137,7 +137,7 @@ suite("Unit Tests", () => {
       ""
     );
   });
-  test("Translate First, caramelise the onions. to British English", function () {
+  test("Translate First, caramelise the onions. to American English", function () {
     assert.equal(
       translator.translate(
         "First, caramelise the onions.",
@@ -148,7 +148,7 @@ suite("Unit Tests", () => {
       ""
     );
   });
-  test("Translate I spent the bank holiday at the funfair. to British English", function () {
+  test("Translate I spent the bank holiday at the funfair. to American English", function () {
     assert.equal(
       translator.translate(
         "I spent the bank holiday at the funfair.",
@@ -159,7 +159,7 @@ suite("Unit Tests", () => {
       ""
     );
   });
-  test("Translate I had a bicky then went to the chippy. to British English", function () {
+  test("Translate I had a bicky then went to the chippy. to American English", function () {
     assert.equal(
       translator.translate(
         "I had a bicky then went to the chippy.",
@@ -167,6 +167,107 @@ suite("Unit Tests", () => {
         false
       ),
       "I had a cookie then went to the fish-and-chip shop.",
+      ""
+    );
+  });
+  test("Translate I've just got bits and bobs in my bum bag. to American English", function () {
+    assert.equal(
+      translator.translate(
+        "I've just got bits and bobs in my bum bag.",
+        translator.britishLocale,
+        false
+      ),
+      "I've just got odds and ends in my fanny pack.",
+      ""
+    );
+  });
+  test("Translate The car boot sale at Boxted Airfield was called off. to American English", function () {
+    assert.equal(
+      translator.translate(
+        "The car boot sale at Boxted Airfield was called off.",
+        translator.britishLocale,
+        false
+      ),
+      "The swap meet at Boxted Airfield was called off.",
+      ""
+    );
+  });
+  test("Translate Have you met Mrs Kalyani? to American English", function () {
+    assert.equal(
+      translator.translate(
+        "Have you met Mrs Kalyani?",
+        translator.britishLocale,
+        false
+      ),
+      "Have you met Mrs. Kalyani?",
+      ""
+    );
+  });
+  test("Translate Prof Joyner of King's College, London. to American English", function () {
+    assert.equal(
+      translator.translate(
+        "Prof Joyner of King's College, London.",
+        translator.britishLocale,
+        false
+      ),
+      "Prof. Joyner of King's College, London.",
+      ""
+    );
+  });
+  test("Translate Tea time is usually around 4 or 4.30. to American English", function () {
+    assert.equal(
+      translator.translate(
+        "Tea time is usually around 4 or 4.30.",
+        translator.britishLocale,
+        false
+      ),
+      "Tea time is usually around 4 or 4:30.",
+      ""
+    );
+  });
+
+  test("Highlight translation in Mangoes are my favorite fruit.", function () {
+    assert.equal(
+      translator.translate(
+        "Mangoes are my favorite fruit.",
+        translator.americanLocale,
+        true
+      ),
+      'Mangoes are my <span class="highlight">favourite</span> fruit.',
+      ""
+    );
+  });
+  test("Highlight translation in I ate yogurt for breakfast.", function () {
+    assert.equal(
+      translator.translate(
+        "I ate yogurt for breakfast.",
+        translator.americanLocale,
+        true
+      ),
+      'I ate <span class="highlight">yoghurt</span> for breakfast.',
+      ""
+    );
+  });
+
+  test("Highlight translation in We watched the footie match for a while.", function () {
+    assert.equal(
+      translator.translate(
+        "We watched the footie match for a while.",
+        translator.britishLocale,
+        true
+      ),
+      'We watched the <span class="highlight">soccer</span> match for a while.',
+      ""
+    );
+  });
+  test("Highlight translation in Paracetamol takes up to an hour to work.", function () {
+    assert.equal(
+      translator.translate(
+        "Paracetamol takes up to an hour to work.",
+        translator.britishLocale,
+        true
+      ),
+      '<span class="highlight">Tylenol</span> takes up to an hour to work.',
       ""
     );
   });
